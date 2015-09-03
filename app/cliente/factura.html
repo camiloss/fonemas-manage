@@ -1,0 +1,80 @@
+<md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span flex>Factura</span>
+       <md-button class="md-fab " ng-click="cancel()">
+        <md-tooltip>
+          Atrás
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_arrow_back_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+       <md-button class="md-fab md-primary md-hue-2" ng-click="saveFactura()">
+        <md-tooltip>
+          Guardar
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_check_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+
+
+    </h2>
+</md-toolbar>
+<md-content style=" font-size:18px">
+
+    <div style="padding-top:2em; font-size:16px">
+        <div class="col-xs-6">
+        </div>
+        <div class="col-xs-6 well">
+            <h2> FACTURA : <strong>{{factura.numero}}</strong></h2>
+            <h3>EMISOR</h3>
+            <div> CIF: <strong>{{factura.emisor.cif}}</strong>
+            </div>
+            <div> Nombre: <strong>{{factura.emisor.nombre}}</strong>
+            </div>
+            <div> Direccion: <strong>{{factura.emisor.direccion}}</strong>
+            </div>
+            <div style="padding-left:6em"> <strong>{{factura.emisor.direccion2}}</strong>
+            </div>
+        </div>
+    </div>
+    <div  class="col-xs-12 well">
+        <h2>RECEPTOR</h2>
+        <div> CIF: <strong>{{factura.receptor.nif}}</strong>
+        </div>
+        <div> Nombre: <strong>{{factura.receptor.nombre}}</strong>
+        </div>
+        <div> Direccion: <strong>{{factura.receptor.direccion}}</strong>
+        </div>
+    </div>
+    <table class="table">
+    <thead>
+      <th  style="width:85%;text-align:center">CONCEPTO</th>
+      <th  style="width:15%;text-align:center">IMPORTE</th>
+    </thead>
+    <tbody>
+      <tr><td>{{factura.conceptos.linea1.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea1.importe}} €</td></tr>
+      <tr><td>{{factura.conceptos.linea2.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea2.importe}} </td></tr>
+      <tr><td>{{factura.conceptos.linea3.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea3.importe}} </td></tr>
+      <tr><td>{{factura.conceptos.linea4.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea4.importe}} </td></tr>
+      <tr style="font-size:1.1em;font-weight:bold;text-align:right"><td>EXENTO DE IVA</td><td style="text-align:right">{{factura.total}} €</td></tr>
+    </tbody>
+    </table>
+    <div style="border:1px solid gray; border-radius:3px;width:40%;float:right;height:6em" >
+      Firma y sello
+    </div>
+    <div style="    text-align: justify;
+    line-height: 0.9;
+    float: left;
+    margin-top: 1em;" >
+    <small><i>
+     La prestación de servicios de logopedia se halla exenta del
+Impuesto sobre el valor añadido (I.V.A.) en cuanto el artículo 20. 1.3 de la Ley 37/1992, de 28 de diciembre
+dispone que “estarán exentas de este impuesto las siguientes operaciones … la asistencia a personas físicas
+por profesionales médicos o sanitarios, cualquiera que sea la persona destinataria de dichos servicios. A
+efectos de este impuesto tendrán la condición de profesionales médicos o sanitarios los considerados como
+tales en el Ordenamiento jurídico y los psicólogos, logopedas y ópticos, diplomados en centros oficiales o
+reconocidos por la Administración”.
+    </i></small>
+    </div>
+
+</md-content>

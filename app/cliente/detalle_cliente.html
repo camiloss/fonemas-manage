@@ -1,0 +1,154 @@
+<md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span flex>{{cliente.name}} {{cliente.surname}}</span>
+       <md-button class="md-fab " ng-click="cancelCliente()">
+        <md-tooltip>
+          Atrás
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_arrow_back_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+       <md-button class="md-fab md-primary md-hue-2" ng-click="saveCliente()">
+        <md-tooltip>
+          Guardar
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_check_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+
+
+    </h2>
+</md-toolbar>
+<md-content class="md-padding">
+    <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="Datos">
+
+            <md-content layout-padding layout="row" layout-sm="column">
+                <form name="clienteForm" style="width:100%">
+
+                    <div layout layout-sm="column">
+                        <md-input-container flex>
+                            <label>Número de cliente</label>
+                            <input type="input" ng-model="cliente.id">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Nombre</label>
+                            <input type="input" ng-model="cliente.name">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Apellidos</label>
+                            <input type="input" ng-model="cliente.surname">
+                        </md-input-container>
+
+                    </div>
+                    <md-input-container flex>
+                        <label>Email</label>
+                        <input type="email" ng-model="cliente.email">
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Dirección</label>
+                        <input type="input" ng-model="cliente.address">
+                    </md-input-container>
+                    <div layout layout-sm="column">
+                        <md-input-container flex>
+                            <label>Teléfono 1</label>
+                            <input type="input" ng-model="cliente.phone1">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Teléfono 2</label>
+                            <input type="input" ng-model="cliente.phone2">
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container flex>
+                            <label>Fecha de nacimiento</label>
+                            <input type="date" ng-model="cliente.fecha_nacimiento">
+                        </md-input-container>
+                    </div>
+                    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                        <md-button class="md-raised" ng-click="cancelCliente()">Cancelar</md-button>
+                        <md-button class="md-raised md-primary" ng-click="saveCliente()">Guardar</md-button>
+                    </section>
+                </form>
+
+            </md-content>
+
+
+        </md-tab>
+
+        <md-tab label="Tratamiento">
+            <md-content layout-padding layout="column" layout-sm="column">
+                <div layout="row">
+
+                    <md-switch ng-model="cliente.tratamiento.activo" aria-label="Activo" flex=40>
+                        <h4>Activo</h4>
+                    </md-switch>
+                    <md-input-container flex>
+                        <label>Fecha de inicio</label>
+                        <input type="date" ng-model="cliente.tratamiento.fecha_inicio">
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Fecha de alta</label>
+                        <input type="date" ng-model="cliente.tratamiento.fecha_alta">
+                    </md-input-container>
+                </div>
+                <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                    <md-input-container flex>
+                        <label>Descripción de patologia</label>
+                        <textarea ng-model="cliente.tratamiento.descripcion"></textarea>
+                    </md-input-container>
+                </section>
+
+				 <md-card class="md-whiteframe-z5">
+				      <md-card-content>
+				        <h2 class="md-title">Sesiones</h2>
+				        <div layout="row" ng-repeat="sesion in ['SESION_1','SESION_2','SESION_3','SESION_4']">
+				        	<span flex> {{sesion}}</span>
+				        	<md-input-container flex>
+					        	<label>Día</label>
+					       		<md-select ng-model="cliente.tratamiento[sesion].dia">
+					          		<md-option  value="L">Lunes</md-option>
+					          		<md-option  value="M">Martes</md-option>
+					          		<md-option  value="X">Miercoles</md-option>
+					          		<md-option  value="J">Jueves</md-option>
+					          		<md-option  value="V">Viernes</md-option>
+
+					       		 </md-select>
+					      </md-input-container>
+					      <md-input-container flex>
+					        	<label>Empieza</label>
+					        	<md-select ng-model="cliente.tratamiento[sesion].hora_empiece">
+					        		<md-option ng-repeat="hora in horas" value="{{hora}}">{{hora}}</md-option>
+					        	</md-select>
+					       	</md-input-container> 
+					       	  <md-input-container flex>
+					        	<label>Acaba</label>
+					        	<md-select ng-model="cliente.tratamiento[sesion].hora_acabe">
+					        		<md-option ng-repeat="hora in horas" value="{{hora}}">{{hora}}</md-option>
+					        	</md-select>
+					       	</md-input-container>
+					       	  <md-input-container flex>
+					        	<label>Logopeda</label>
+					        	<md-select ng-model="cliente.tratamiento[sesion].profesora">
+					        		<md-option ng-repeat="profesora in profesoras" value="{{profesora}}">{{profesora}}</md-option>
+					        	</md-select>
+					       	</md-input-container>
+				        </div>
+				      </md-card-content>
+				    </md-card>
+
+            </md-content>
+        </md-tab>
+
+
+        <md-tab label="Facturación">
+            <md-content layout-padding layout="row" layout-sm="column">
+            </md-content>
+        </md-tab>
+
+          <md-tab label="Notas">
+            <md-content layout-padding layout="row" layout-sm="column">
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>

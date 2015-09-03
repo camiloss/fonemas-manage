@@ -1,0 +1,43 @@
+<form class="form">
+	 <div class="form-group col-xs-2">
+        <label>Número de cliente</label>
+        <input type="input" class="form-control" placeholder="Numero" ng-model="cliente.id">
+    </div>
+    <div class="form-group col-xs-4">
+        <label>Nombre</label>
+        <input type="input" class="form-control" placeholder="Nombre" ng-model="cliente.name">
+    </div>
+
+    <div class="form-group col-xs-6">
+        <label>Apellidos</label>
+        <input type="input" class="form-control" placeholder="Apellidos" ng-model="cliente.surname">
+    </div>
+    
+    <div class="form-group col-xs-6">
+        <label>Email</label>
+        <input type="input" class="form-control" placeholder="email" ng-model="cliente.email">
+    </div>
+    <h3 class=" col-xs-12">Dirección</h3>
+    <div class="form-group col-xs-12">
+        <label>Calle</label>
+        <input type="input" class="form-control" placeholder="Calle" ng-model="cliente.address">
+    </div>
+    <h3 class=" col-xs-12">Teléfonos</h3>
+    <div class="form-group col-xs-6">
+        <label>Teléfono 1</label>
+        <input type="input" class="form-control" placeholder="teléfono" ng-model="cliente.phone1">
+    </div>
+    <div class="form-group col-xs-6">
+        <label>Teléfono 2</label>
+        <input type="input" class="form-control" placeholder="teléfono" ng-model="cliente.phone2">
+    </div>
+</form>
+<div class=" col-xs-12">
+<button type="button" class="btn btn-primary btn-lg" ng-click="saveCliente()">
+    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Guardar
+</button>
+
+<button type="button" class="btn btn-default btn-lg" ng-click="cancelCliente()">
+    <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span> Cancelar
+</button>
+</div>

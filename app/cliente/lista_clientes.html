@@ -1,0 +1,28 @@
+<md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span flex>Lista de clientes</span>
+   
+      <md-button class="md-fab md-primary md-hue-2" ng-click="nuevoCliente()">
+        <md-tooltip>
+          Nuevo
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_person_add_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+       </h2>
+</md-toolbar>
+<md-content>
+    <md-list>
+
+        <md-list-item class="md-2-line" ng-repeat="cliente in clientes">
+            <md-icon md-svg-icon="social:person" style="color: #00F; width: 4em;  height: 4em;"></md-icon>
+            <div class="md-list-item-text">
+                <h3>{{cliente.name}} {{cliente.surname}}</h3>
+                <p>{{cliente.phone1}}</p>
+            </div>
+            <a href="#/cliente/{{cliente.$id}}"><span class="glyphicon glyphicon-pencil" style="padding:1em"></span></a>
+        </md-list-item>
+    </md-list>
+
+  
+</md-content>

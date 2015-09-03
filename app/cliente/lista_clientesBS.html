@@ -1,0 +1,26 @@
+<h2>Clientes</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="cliente in clientes">
+        	<td>{{cliente.name}}</td>
+        	<td>{{cliente.surname}}</td>
+        	<td class="text-right"> 
+        		<a href="#/cliente/{{cliente.$id}}"><span class="glyphicon glyphicon-pencil"></span></button>
+        		<button><span class="glyphicon glyphicon-trash"></span></button>
+        	</td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+<a href="#/cliente/new"><span class="glyphicon glyphicon-plus"></span> Nuevo</button>
