@@ -1,0 +1,105 @@
+<md-toolbar class="md-theme-light hidden-print">
+    <h2 class="md-toolbar-tools">
+      <span flex>Factura</span>
+       <md-button class="md-fab " ng-click="cancel()">
+        <md-tooltip>
+          Atrás
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_arrow_back_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+       <md-button class="md-fab md-primary md-hue-2" ng-click="saveFactura()">
+        <md-tooltip>
+          Guardar
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_check_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+
+
+    </h2>
+</md-toolbar>
+<md-content>
+    <form name="clienteForm" style="width:100%">
+
+        <div layout layout-sm="column">
+            <md-input-container flex>
+                <label>Número de factura</label>
+                <input type="input" required ng-model="factura.numero">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Fecha</label>
+                <input type="date" required ng-model="factura.fecha">
+            </md-input-container>
+
+
+            <md-autocomplete flex md-input-name="autocompleteField" md-input-minlength="1" md-selected-item="selectedCliente" md-search-text="searchText" md-items="cliente in clientes" md-item-text="cliente.id" md-floating-label="Cliente">
+                <md-item-template>
+                    <span md-highlight-text="searchText">{{cliente.name}} {{cliente.surname}}</span>
+                </md-item-template>
+
+
+            </md-autocomplete>
+
+
+        </div>
+        <div layout="column" class="well">
+            <h3>RECEPTOR</h3>
+            <div flex> CIF: <strong>{{factura.receptor.nif}}</strong>
+            </div>
+            <div flex> Nombre: <strong>{{factura.receptor.nombre}}</strong>
+            </div>
+            <div flex> Direccion: <strong>{{factura.receptor.direccion}}</strong>
+            </div>
+        </div>
+        <div layout>
+            <md-input-container flex=80>
+                <label>Linea 1: Concepto</label>
+                <input type="input" ng-model="factura.conceptos.linea1.concepto">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Importe</label>
+                <input type="input" ng-model="factura.conceptos.linea1.importe">
+            </md-input-container>
+        </div>
+        <div layout>
+            <md-input-container flex=80>
+                <label>Linea 2: Concepto</label>
+                <input type="input" ng-model="factura.conceptos.linea2.concepto">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Importe</label>
+                <input type="input" ng-model="factura.conceptos.linea2.importe">
+            </md-input-container>
+        </div>
+        <div layout>
+            <md-input-container flex=80>
+                <label>Linea 3: Concepto</label>
+                <input type="input" ng-model="factura.conceptos.linea3.concepto">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Importe</label>
+                <input type="input" ng-model="factura.conceptos.linea3.importe">
+            </md-input-container>
+        </div>
+        <div layout>
+            <md-input-container flex=80>
+                <label>Linea 4: Concepto</label>
+                <input type="input" ng-model="factura.conceptos.linea4.concepto">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Importe</label>
+                <input type="input" ng-model="factura.conceptos.linea4.importe">
+            </md-input-container>
+        </div>
+        <div layout>
+            <md-input-container flex=80>
+
+            </md-input-container>
+            <md-input-container flex>
+                <h3>{{factura.total}}</h3>
+            </md-input-container>
+        </div>
+
+    </form>
+</md-content>

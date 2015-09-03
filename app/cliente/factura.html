@@ -1,4 +1,4 @@
-<md-toolbar class="md-theme-light">
+<md-toolbar class="md-theme-light hidden-print">
     <h2 class="md-toolbar-tools">
       <span flex>Factura</span>
        <md-button class="md-fab " ng-click="cancel()">
@@ -19,14 +19,16 @@
 
     </h2>
 </md-toolbar>
-<md-content style=" font-size:18px">
 
-    <div style="padding-top:2em; font-size:16px">
-        <div class="col-xs-6">
+<div class="">
+
+    <div style="padding-top:2em; font-size:14px">
+        <div class="col-xs-5">
+            <img src="icons/logo_trans.png" />
         </div>
-        <div class="col-xs-6 well">
-            <h2> FACTURA : <strong>{{factura.numero}}</strong></h2>
-            <h3>EMISOR</h3>
+        <div class="col-xs-7 well">
+            <h3> FACTURA : <strong>{{factura.numero}}</strong></h3>
+
             <div> CIF: <strong>{{factura.emisor.cif}}</strong>
             </div>
             <div> Nombre: <strong>{{factura.emisor.nombre}}</strong>
@@ -37,8 +39,8 @@
             </div>
         </div>
     </div>
-    <div  class="col-xs-12 well">
-        <h2>RECEPTOR</h2>
+    <div class="col-xs-12 well">
+        <h3>RECEPTOR</h3>
         <div> CIF: <strong>{{factura.receptor.nif}}</strong>
         </div>
         <div> Nombre: <strong>{{factura.receptor.nombre}}</strong>
@@ -47,26 +49,42 @@
         </div>
     </div>
     <table class="table">
-    <thead>
-      <th  style="width:85%;text-align:center">CONCEPTO</th>
-      <th  style="width:15%;text-align:center">IMPORTE</th>
-    </thead>
-    <tbody>
-      <tr><td>{{factura.conceptos.linea1.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea1.importe}} €</td></tr>
-      <tr><td>{{factura.conceptos.linea2.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea2.importe}} </td></tr>
-      <tr><td>{{factura.conceptos.linea3.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea3.importe}} </td></tr>
-      <tr><td>{{factura.conceptos.linea4.concepto}}</td><td style="text-align:right">{{factura.conceptos.linea4.importe}} </td></tr>
-      <tr style="font-size:1.1em;font-weight:bold;text-align:right"><td>EXENTO DE IVA</td><td style="text-align:right">{{factura.total}} €</td></tr>
-    </tbody>
+        <thead>
+            <th style="width:85%;text-align:center">CONCEPTO</th>
+            <th style="width:15%;text-align:center">IMPORTE</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{factura.conceptos.linea1.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea1.importe}} €</td>
+            </tr>
+            <tr>
+                <td>&nbsp;{{factura.conceptos.linea2.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea2.importe}} </td>
+            </tr>
+            <tr>
+                <td>&nbsp;{{factura.conceptos.linea3.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea3.importe}} </td>
+            </tr>
+            <tr>
+                <td>&nbsp;{{factura.conceptos.linea4.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea4.importe}} </td>
+            </tr>
+            <tr style="font-size:1.1em;font-weight:bold;text-align:right">
+                <td>EXENTO DE IVA</td>
+                <td style="text-align:right">{{factura.total}} €</td>
+            </tr>
+        </tbody>
     </table>
-    <div style="border:1px solid gray; border-radius:3px;width:40%;float:right;height:6em" >
-      Firma y sello
+    <div class="col-xs-5 col-xs-offset-5">
+        Firma y sello
+        <div style="border:1px solid gray; border-radius:3px;height:9em">
+
+        </div>
     </div>
-    <div style="    text-align: justify;
-    line-height: 0.9;
-    float: left;
-    margin-top: 1em;" >
-    <small><i>
+
+    <div class="col-xs-12" style="    text-align: justify;    line-height: 0.9;     margin-top: 1em;">
+        <small><i>
      La prestación de servicios de logopedia se halla exenta del
 Impuesto sobre el valor añadido (I.V.A.) en cuanto el artículo 20. 1.3 de la Ley 37/1992, de 28 de diciembre
 dispone que “estarán exentas de este impuesto las siguientes operaciones … la asistencia a personas físicas
@@ -76,5 +94,4 @@ tales en el Ordenamiento jurídico y los psicólogos, logopedas y ópticos, dipl
 reconocidos por la Administración”.
     </i></small>
     </div>
-
-</md-content>
+</div>
