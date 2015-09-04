@@ -19,7 +19,7 @@
 </head>
 
 <body ng-cloak>
-    <md-content layout="row" class=" hidden-print">
+    <md-content layout="row" class=" hidden-print" style="margin-bottom: 5px;border-bottom: dotted 2px gray;">
         <md-fab-toolbar flex=80>
             <md-fab-trigger ng-show="loggedIn" class="align-with-text">
                 <md-button aria-label="menu" class="md-fab md-primary">
@@ -42,14 +42,24 @@
             </md-toolbar>
 
         </md-fab-toolbar>
-        <div flex>
-            <h3 ng-hide="loggedIn" class="pull-right"><a href="#/login">login with Google</a></h3>
-            <h3 ng-show="loggedIn" class="pull-right">Usuario : {{user.google.displayName}}</h3>
+        <div flex ng-controller="LoginCtrl">
+            <h3 ng-hide="loggedIn" class="pull-right">
+             <md-button class="md-fab md-primary" ng-click="login()">
+                        <md-icon md-svg-src="icons/ic_lock_24px.svg"></md-icon>
+  
+                </md-button>
+          </h3>
+            <h3 ng-show="loggedIn" class="pull-right">Usuario : {{user.google.displayName}}
+                <md-button class="md-fab md-primary" ng-click="logout()">
+                        <md-icon md-svg-src="icons/ic_lock_open_24px.svg"></md-icon>
+  
+                    </md-button>
+          </h3>
         </div>
     </md-content>
-   
 
-    <div class="container" ng-view></div>
+
+    <div class="contaianer" ng-view></div>
 
 
 

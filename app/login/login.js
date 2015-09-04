@@ -20,6 +20,13 @@ angular.module('myApp.login', ['firebase.utils', 'firebase.auth', 'ngRoute'])
           $scope.err = errMessage(err);
         });
     };
+
+    $scope.logout=function(){
+      Auth.$unauth();
+    };
+
+
+    
    $scope.googleLogin = function() {
       var ref = new Firebase(FBURL);
       ref.authWithOAuthPopup("google", function(error, authData) {
