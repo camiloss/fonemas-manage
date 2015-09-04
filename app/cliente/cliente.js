@@ -61,47 +61,22 @@
         }
     ]);
 
-    app.controller('FacturaCtrl', ['$scope', '$routeParams', '$firebaseObject', 'fbutil', '$location', 'clienteList',
-        function($scope, $routeParams, $firebaseObject, fbutil, $location, clienteList) {
+ app.controller('FacturasCtrl', ['$scope', 'facturaList', '$location', function($scope, facturaList, $location) {
+        $scope.facturas = facturaList;
+        $scope.nuevaFactura = function(cliente) {
+            $location.path('/factura-edit/new');
+        };
+    }]);
 
-            $scope.factura = {
-                numero: "1231",
-                fecha: "31-12-2001",
-                emisor: {
-                    cif: "83.202.200-B",
-                    nombre: "Fonemas Logopedia S.L.",
-                    direccion: "Avda. Doctor Garcia Tapia, 145",
-                    direccion2: "28030 Madrid"
-                },
-                receptor: {
-                    numero: "123",
-                    nombre: "Lidia Ranz Fernández",
-                    direccion: "bla bla bla",
-                    nif: "123456789-R"
-                },
-                conceptos: {
-                    linea1: {
-                        concepto: "Sesiones de logopedia de Febrero 2000",
-                        importe: 180
-                    }
-                },
-                total: 180
-            };
 
-            $scope.saveFactura = function() {
-                // convertir dates a timestamp
-                $scope.cliente.fecha_nacimiento = ($scope.cliente.fecha_nacimiento) ? $scope.cliente.fecha_nacimiento.getTime() : 0;
-                if ($scope.cliente.tratamiento) {
-                    $scope.cliente.tratamiento.fecha_inicio = ($scope.cliente.tratamiento.fecha_inicio) ? $scope.cliente.tratamiento.fecha_inicio.getTime() : 0;
-                    $scope.cliente.tratamiento.fecha_alta = ($scope.cliente.tratamiento.fecha_alta) ? $scope.cliente.tratamiento.fecha_alta.getTime() : 0;
-                }
+    app.controller('FacturaViewCtrl', ['$scope', '$routeParams', '$firebaseObject', 'fbutil', '$window',
+        function($scope, $routeParams, $firebaseObject, fbutil, $window) {
 
-                if ($scope.nuevoCliente) {
-                    clienteList.$add($scope.cliente);
-                } else {
-                    $scope.cliente.$save();
-                }
-                $window.history.back();
+            
+            $scope.factura = $firebaseObject(fbutil.ref('facturas', $routeParams.facturaId));
+            $scope.printFactura = function() {
+               $window.print();
+               
             };
 
             $scope.cancel = function(cliente) {
@@ -112,32 +87,78 @@
         }
     ]);
 
-    app.controller('FacturaEditCtrl', ['$scope', '$routeParams', '$firebaseObject', 'fbutil', '$location', 'clienteList',
-        function($scope, $routeParams, $firebaseObject, fbutil, $location, clienteList) {
+    app.controller('FacturaEditCtrl', ['$scope', '$routeParams', '$firebaseObject', 'fbutil', '$location','$window', 'clienteList','facturaList',
+        function($scope, $routeParams, $firebaseObject, fbutil, $location, $window,clienteList,facturaList) {
+            $scope.facturaId = $routeParams.facturaId;
+            $scope.nuevaFactura = ($scope.facturaId == 'new');
+
+            if ($scope.nuevaFactura) {
+                $scope.factura = {
+                    emisor: {
+                        cif: "83.202.200-B",
+                        nombre: "Fonemas Logopedia S.L.",
+                        direccion: "Avda. Doctor Garcia Tapia, 145",
+                        direccion2: "28030 Madrid"
+                    },
+                    receptor: {},
+                    conceptos: {
+                        linea1: {},
+                        linea2: {},
+                        linea3: {},
+                        linea4: {},
+                    },
+                    total: 0
+                };
+            } else {
+                $scope.factura = $firebaseObject(fbutil.ref('facturas', $scope.facturaId));
+                $scope.factura.$loaded().then(function() {
+                    //convertir fechas a date
+                    $scope.factura.fecha = ($scope.factura.fecha) ? new Date($scope.factura.fecha) : null;
+                  
+                });
+            }
 
             $scope.clientes = clienteList;
-            $scope.factura = {
-                emisor: {
-                    cif: "83.202.200-B",
-                    nombre: "Fonemas Logopedia S.L.",
-                    direccion: "Avda. Doctor Garcia Tapia, 145",
-                    direccion2: "28030 Madrid"
-                },
-                receptor: {}
-            };
-            var self = this;
+            
 
             function querySearch(query) {
                 var results = query ? $scope.clientes.filter((query)) : [];
                 return results;
             }
-            $scope.$watch('selectedCliente', function( newValue) {
-                 $scope.factura.receptor.numero = newValue.id;
-                 $scope.factura.receptor.nombre = newValue.name + " " + newValue.surname;
-                 $scope.factura.receptor.direccion = newValue.address;
-                 $scope.factura.receptor.nif = "123456789-R";
+
+            $scope.$watch('selectedCliente', function(newValue) {
+                if (newValue == null) {
+                    return;
+                }
+                $scope.factura.receptor.numero = newValue.id;
+                $scope.factura.receptor.nombre = newValue.name + " " + newValue.surname;
+                $scope.factura.receptor.direccion = newValue.address;
+                $scope.factura.receptor.nif = "123456789-R";
             });
-            $scope.saveFactura = function() {};
+            $scope.$watch('factura.conceptos', function(newValue) {
+                if (newValue == null) {
+                    return;
+                }
+                var total = 0;
+                total += (newValue.linea1 && newValue.linea1.importe) ? newValue.linea1.importe : 0;
+                total += (newValue.linea2 && newValue.linea2.importe) ? newValue.linea2.importe : 0;
+                total += (newValue.linea3 && newValue.linea3.importe) ? newValue.linea3.importe : 0;
+                total += (newValue.linea4 && newValue.linea4.importe) ? newValue.linea4.importe : 0;
+                $scope.factura.total = total;
+
+            }, true);
+            $scope.saveFactura = function() {
+              $scope.factura.fecha = ($scope.factura.fecha) ? $scope.factura.fecha.getTime() : 0;
+                if ($scope.nuevaFactura) {
+                    facturaList.$add($scope.factura);
+                } else {
+                    $scope.factura.$save();
+                }
+                $scope.nuevaFactura=false;
+                 $scope.factura.fecha = ($scope.factura.fecha) ? new Date($scope.factura.fecha) : null;
+               
+
+            };
 
             $scope.cancel = function(cliente) {
                 $window.history.back();
@@ -146,11 +167,15 @@
     ]);
     /*******************SERVICES*****************************/
     app.factory('clienteList', ['fbutil', '$firebaseArray', function(fbutil, $firebaseArray) {
+
+
         var ref = fbutil.ref('clientes').limitToLast(10);
         return $firebaseArray(ref);
     }]);
-    app.factory('facturas', ['fbutil', '$firebaseArray', function(fbutil, $firebaseArray) {
-        var ref = fbutil.ref('clientes').limitToLast(10);
+
+
+    app.factory('facturaList', ['fbutil', '$firebaseArray', function(fbutil, $firebaseArray) {
+        var ref = fbutil.ref('facturas');
         return $firebaseArray(ref);
     }]);
     /*******************ROUTING*****************************/
@@ -164,10 +189,13 @@
             templateUrl: 'cliente/detalle_cliente.html',
             controller: 'ClienteCtrl'
         });
-
+          $routeProvider.when('/facturas', {
+            templateUrl: 'cliente/facturas.html',
+            controller: 'FacturasCtrl'
+        });
         $routeProvider.when('/factura/:facturaId', {
             templateUrl: 'cliente/factura.html',
-            controller: 'FacturaCtrl'
+            controller: 'FacturaViewCtrl'
         });
         $routeProvider.when('/factura-edit/:facturaId', {
             templateUrl: 'cliente/factura_edit.html',

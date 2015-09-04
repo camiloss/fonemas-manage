@@ -59,7 +59,7 @@
             </md-input-container>
             <md-input-container flex>
                 <label>Importe</label>
-                <input type="input" ng-model="factura.conceptos.linea1.importe">
+                <input type="number" ng-model="factura.conceptos.linea1.importe">
             </md-input-container>
         </div>
         <div layout>
@@ -69,7 +69,7 @@
             </md-input-container>
             <md-input-container flex>
                 <label>Importe</label>
-                <input type="input" ng-model="factura.conceptos.linea2.importe">
+                <input type="number" ng-model="factura.conceptos.linea2.importe">
             </md-input-container>
         </div>
         <div layout>
@@ -79,7 +79,7 @@
             </md-input-container>
             <md-input-container flex>
                 <label>Importe</label>
-                <input type="input" ng-model="factura.conceptos.linea3.importe">
+                <input type="number" ng-model="factura.conceptos.linea3.importe">
             </md-input-container>
         </div>
         <div layout>
@@ -89,7 +89,7 @@
             </md-input-container>
             <md-input-container flex>
                 <label>Importe</label>
-                <input type="input" ng-model="factura.conceptos.linea4.importe">
+                <input type="number" ng-model="factura.conceptos.linea4.importe">
             </md-input-container>
         </div>
         <div layout>
@@ -97,7 +97,7 @@
 
             </md-input-container>
             <md-input-container flex>
-                <h3>{{factura.total}}</h3>
+                <h3>{{factura.total | number:2}} €</h3>
             </md-input-container>
         </div>
 

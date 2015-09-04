@@ -1,0 +1,46 @@
+<md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span flex>Lista de facturas</span>
+   
+      <md-button class="md-fab md-primary md-hue-2" ng-click="nuevaFactura()">
+        <md-tooltip>
+          Nuevo
+        </md-tooltip>
+        <md-icon md-svg-src="icons/ic_add_box_24px.svg" style="width: 24px; height: 24px;">
+        </md-icon>
+      </md-button>
+       </h2>
+</md-toolbar>
+<md-content>
+    <md-list>
+
+        <md-list-item class="md-2-line" ng-repeat="factura in facturas">
+            
+            <div class="md-list-item-text">
+                <h4 style="    font-size: 1.4em;">
+                      {{factura.fecha | fecha }} <span style="margin-left:3em">{{factura.receptor.nombre}}</span> <strong class="pull-right"> {{factura.total|number:2}} €</strong>
+                </h4>
+
+            </div>
+            <md-button class="md-fab md-default md-hue-2" href="#/factura-edit/{{factura.$id}}">
+                <md-tooltip>
+                    Editar
+                </md-tooltip>
+
+                <md-icon md-svg-src="icons/ic_mode_edit_24px.svg" style="width: 24px; height: 24px;">
+                </md-icon>
+
+            </md-button>
+            <md-button class="md-fab md-default md-hue-2" href="#/factura/{{factura.$id}}">
+                <md-tooltip>
+                    Ver
+                </md-tooltip>
+
+                <md-icon md-svg-src="icons/ic_insert_drive_file_24px.svg" style="width: 24px; height: 24px;">
+                </md-icon>
+            </md-button>
+        </md-list-item>
+    </md-list>
+
+
+</md-content>

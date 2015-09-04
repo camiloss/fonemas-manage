@@ -22,5 +22,6 @@ angular.module('myApp', [
     // track status of authentication
     Auth.$onAuth(function(user) {
       $rootScope.loggedIn = !!user;
+      $rootScope.user = user;
     });
   }]);
