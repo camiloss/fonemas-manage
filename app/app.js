@@ -13,9 +13,9 @@ angular.module('myApp', [
 
 .config(function($mdIconProvider) {
   $mdIconProvider
-    .iconSet('social', 'bower_components/angular-material/demos/icon/demoSvgIconSets/assets/social-icons.svg', 48)
-   
-    .defaultIconSet('bower_components/angular-material/demos/icon/demoSvgIconSets/assets/core-icons.svg', 48);
+    .iconSet('social', 'https://material.angularjs.org/latest/img/icons/sets/social-icons.svg', 48)
+
+    .defaultIconSet('https://material.angularjs.org/latest/img/icons/sets/core-icons.svg', 48);
 })
 
   .run(['$rootScope', 'Auth', function($rootScope, Auth) {
