@@ -54,23 +54,23 @@
         <tbody>
             <tr>
                 <td>{{factura.conceptos.linea1.concepto}}</td>
-                <td style="text-align:right">{{factura.conceptos.linea1.importe}} €</td>
+                <td style="text-align:right">{{factura.conceptos.linea1.importe | currency}}</td>
             </tr>
             <tr>
                 <td>&nbsp;{{factura.conceptos.linea2.concepto}}</td>
-                <td style="text-align:right">{{factura.conceptos.linea2.importe}} </td>
+                <td style="text-align:right">{{factura.conceptos.linea2.importe | currency}}</td>
             </tr>
             <tr>
                 <td>&nbsp;{{factura.conceptos.linea3.concepto}}</td>
-                <td style="text-align:right">{{factura.conceptos.linea3.importe}} </td>
+                <td style="text-align:right">{{factura.conceptos.linea3.importe | currency}} </td>
             </tr>
             <tr>
                 <td>&nbsp;{{factura.conceptos.linea4.concepto}}</td>
-                <td style="text-align:right">{{factura.conceptos.linea4.importe}} </td>
+                <td style="text-align:right">{{factura.conceptos.linea4.importe | currency}} </td>
             </tr>
             <tr style="font-size:1.1em;font-weight:bold;text-align:right">
                 <td>EXENTO DE IVA</td>
-                <td style="text-align:right">{{factura.total}} €</td>
+                <td style="text-align:right">{{factura.total | currency}}</td>
             </tr>
         </tbody>
     </table>

@@ -1,7 +1,7 @@
 (function(angular) {
     "use strict";
 
-    var app = angular.module('myApp.cliente', ['ngRoute', 'firebase.utils', 'firebase']);
+    var app = angular.module('myApp.cliente', ['ngRoute',  'firebase']);
 
 
     /*************************CONTOLLERS*******************/
@@ -14,8 +14,8 @@
 
 
 
-    app.controller('ClienteCtrl', ['$scope', '$routeParams', '$firebaseObject', 'fbutil', '$location', 'clienteList',
-        function($scope, $routeParams, $firebaseObject, fbutil, $location, clienteList) {
+    app.controller('ClienteCtrl', ['$scope', '$routeParams', '$firebaseObject',  '$location', 'clienteList',
+        function($scope, $routeParams, $firebaseObject,  $location, clienteList) {
             $scope.clienteId = $routeParams.clienteId;
             $scope.nuevoCliente = ($scope.clienteId == 'new');
             $scope.horas = ['16:30', '16:45', '17:00', '17:15', '17:30', '17:45', '18:00', '18:15', '18:30', '18:45', '19:00', '19:15', '19:30', '19:45', '20:00', '20:15', '20:30', '20:45'];
@@ -25,7 +25,8 @@
             if ($scope.nuevoCliente) {
                 $scope.cliente = {};
             } else {
-                $scope.cliente = $firebaseObject(fbutil.ref('clientes', $scope.clienteId));
+                var ref = firebase.database().ref('clientes/'+ $scope.clienteId);
+                $scope.cliente = $firebaseObject(ref);
                 $scope.cliente.$loaded().then(function() {
                     //convertir fechas a date
                     $scope.cliente.fecha_nacimiento = ($scope.cliente.fecha_nacimiento) ? new Date($scope.cliente.fecha_nacimiento) : null;
@@ -69,11 +70,12 @@
     }]);
 
 
-    app.controller('FacturaViewCtrl', ['$scope', '$routeParams', '$firebaseObject', 'fbutil', '$window',
-        function($scope, $routeParams, $firebaseObject, fbutil, $window) {
-
-            
-            $scope.factura = $firebaseObject(fbutil.ref('facturas', $routeParams.facturaId));
+    app.controller('FacturaViewCtrl', ['$scope', '$routeParams', '$firebaseObject',  '$window',
+        function($scope, $routeParams, $firebaseObject, $window) {
+            $scope.facturaId = $routeParams.facturaId;
+            var ref = firebase.database().ref('facturas/'+ $scope.facturaId);
+            $scope.factura = $firebaseObject(ref);
+           
             $scope.printFactura = function() {
                $window.print();
                
@@ -87,8 +89,8 @@
         }
     ]);
 
-    app.controller('FacturaEditCtrl', ['$scope', '$routeParams', '$firebaseObject', 'fbutil', '$location','$window', 'clienteList','facturaList',
-        function($scope, $routeParams, $firebaseObject, fbutil, $location, $window,clienteList,facturaList) {
+    app.controller('FacturaEditCtrl', ['$scope', '$routeParams', '$firebaseObject', '$location','$window', 'clienteList','facturaList',
+        function($scope, $routeParams, $firebaseObject,  $location, $window,clienteList,facturaList) {
             $scope.facturaId = $routeParams.facturaId;
             $scope.nuevaFactura = ($scope.facturaId == 'new');
 
@@ -110,7 +112,9 @@
                     total: 0
                 };
             } else {
-                $scope.factura = $firebaseObject(fbutil.ref('facturas', $scope.facturaId));
+                var ref = firebase.database().ref('facturas/'+ $scope.facturaId);
+                $scope.factura = $firebaseObject(ref);
+               
                 $scope.factura.$loaded().then(function() {
                     //convertir fechas a date
                     $scope.factura.fecha = ($scope.factura.fecha) ? new Date($scope.factura.fecha) : null;
@@ -148,15 +152,15 @@
 
             }, true);
             $scope.saveFactura = function() {
-              $scope.factura.fecha = ($scope.factura.fecha) ? $scope.factura.fecha.getTime() : 0;
+                $scope.factura.fecha = ($scope.factura.fecha) ? $scope.factura.fecha.getTime() : 0;
                 if ($scope.nuevaFactura) {
                     facturaList.$add($scope.factura);
                 } else {
                     $scope.factura.$save();
                 }
                 $scope.nuevaFactura=false;
-                 $scope.factura.fecha = ($scope.factura.fecha) ? new Date($scope.factura.fecha) : null;
-               
+                $scope.factura.fecha = ($scope.factura.fecha) ? new Date($scope.factura.fecha) : null;
+                $window.history.back();
 
             };
 
@@ -166,16 +170,16 @@
         }
     ]);
     /*******************SERVICES*****************************/
-    app.factory('clienteList', ['fbutil', '$firebaseArray', function(fbutil, $firebaseArray) {
+    app.factory('clienteList', [ '$firebaseArray', function( $firebaseArray) {
 
 
-        var ref = fbutil.ref('clientes').limitToLast(10);
+        var ref = firebase.database().ref().child("clientes");
         return $firebaseArray(ref);
     }]);
 
 
-    app.factory('facturaList', ['fbutil', '$firebaseArray', function(fbutil, $firebaseArray) {
-        var ref = fbutil.ref('facturas');
+    app.factory('facturaList', [ '$firebaseArray', function( $firebaseArray) {
+        var ref = firebase.database().ref().child("facturas");
         return $firebaseArray(ref);
     }]);
     /*******************ROUTING*****************************/

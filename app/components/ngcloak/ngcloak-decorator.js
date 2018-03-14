@@ -10,13 +10,13 @@
 angular.module('myApp')
   .config(['$provide', function($provide) {
     // adapt ng-cloak to wait for auth before it does its magic
-    $provide.decorator('ngCloakDirective', ['$delegate', 'Auth',
-      function($delegate, Auth) {
+    $provide.decorator('ngCloakDirective', ['$delegate', '$firebaseAuth',
+      function($delegate, $firebaseAuth) {
         var directive = $delegate[0];
         // make a copy of the old directive
         var _compile = directive.compile;
         directive.compile = function(element, attr) {
-          Auth.$waitForAuth().then(function() {
+          $firebaseAuth().$waitForSignIn().then(function() {
             // after auth, run the original ng-cloak directive
             _compile.call(directive, element, attr);
           });
