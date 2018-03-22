@@ -39,37 +39,46 @@
     </div>
     <div class="col-xs-12 well">
         <h3>RECEPTOR</h3>
-        <div> CIF: <strong>{{factura.receptor.nif}}</strong>
+        <div> NIF: <strong>{{factura.receptor.nif}}</strong>
         </div>
         <div> Nombre: <strong>{{factura.receptor.nombre}}</strong>
         </div>
         <div> Direccion: <strong>{{factura.receptor.direccion}}</strong>
         </div>
+        <div> Fecha: <strong>{{factura.fecha | date:'longDate'}}</strong>
+        </div>
     </div>
     <table class="table">
         <thead>
-            <th style="width:85%;text-align:center">CONCEPTO</th>
-            <th style="width:15%;text-align:center">IMPORTE</th>
+            <th style="width:70%;text-align:center">CONCEPTO</th>
+            <th style="width:15%;text-align:center">IMPORTE Unidad</th>
+            <th style="width:15%;text-align:center">IMPORTE Total</th>
         </thead>
         <tbody>
             <tr>
                 <td>{{factura.conceptos.linea1.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea1.importeUnidad | currency}}</td>
                 <td style="text-align:right">{{factura.conceptos.linea1.importe | currency}}</td>
             </tr>
             <tr>
                 <td>&nbsp;{{factura.conceptos.linea2.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea2.importeUnidad | currency}}</td>
+
                 <td style="text-align:right">{{factura.conceptos.linea2.importe | currency}}</td>
             </tr>
             <tr>
                 <td>&nbsp;{{factura.conceptos.linea3.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea3.importeUnidad | currency}}</td>
+
                 <td style="text-align:right">{{factura.conceptos.linea3.importe | currency}} </td>
             </tr>
             <tr>
                 <td>&nbsp;{{factura.conceptos.linea4.concepto}}</td>
+                <td style="text-align:right">{{factura.conceptos.linea4.importeUnidad | currency}}</td>
                 <td style="text-align:right">{{factura.conceptos.linea4.importe | currency}} </td>
             </tr>
             <tr style="font-size:1.1em;font-weight:bold;text-align:right">
-                <td>EXENTO DE IVA</td>
+                <td colspan="2">EXENTO DE IVA</td>
                 <td style="text-align:right">{{factura.total | currency}}</td>
             </tr>
         </tbody>

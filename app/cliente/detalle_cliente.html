@@ -41,15 +41,21 @@
                         </md-input-container>
 
                     </div>
-                    <md-input-container flex>
-                        <label>Email</label>
-                        <input type="email" ng-model="cliente.email">
-                    </md-input-container>
-                    <md-input-container flex>
-                        <label>Dirección</label>
-                        <input type="input" ng-model="cliente.address">
-                    </md-input-container>
+                    <div layout="row" >
+                        <md-input-container flex="35">
+                            <label>Email</label>
+                            <input type="email" ng-model="cliente.email">
+                        </md-input-container>
+                        <md-input-container flex="65">
+                            <label>Dirección</label>
+                            <input type="input" ng-model="cliente.address">
+                        </md-input-container>
+                    </div>
                     <div layout layout-sm="column">
+                        <md-input-container flex>
+                                <label>NIF</label>
+                                <input type="input" ng-model="cliente.nif">
+                            </md-input-container>
                         <md-input-container flex>
                             <label>Teléfono 1</label>
                             <input type="input" ng-model="cliente.phone1">

@@ -137,7 +137,7 @@
                 $scope.factura.receptor.numero = newValue.id;
                 $scope.factura.receptor.nombre = newValue.name + " " + newValue.surname;
                 $scope.factura.receptor.direccion = newValue.address;
-                $scope.factura.receptor.nif = "123456789-R";
+                $scope.factura.receptor.nif = newValue.nif;
             });
             $scope.$watch('factura.conceptos', function(newValue) {
                 if (newValue == null) {
